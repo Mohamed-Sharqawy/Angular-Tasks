@@ -89,6 +89,17 @@ export class Products implements OnInit{
   this.productFound = this.productsList;
   }
 
+  buyProduct(prod:Iproduct){
+    if(prod.productQuantity > 0){
+      prod.productQuantity--;
+      this.totalPrice += prod.productPrice;
+
+      if(prod.productQuantity === 0){
+        alert("Product is out of stock!");
+    }
+  }
+}
+
   addtocart(quantity:string, price:number){
   this.totalPrice += +quantity * price;
   }
