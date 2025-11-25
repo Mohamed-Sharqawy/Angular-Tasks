@@ -1,0 +1,8 @@
+<h1>{{ store.storeName }}</h1>
+<img [src]="store.imageUrl" alt="{{ store.storeName }}" />
+<h2>Branches:</h2>
+<ul>
+  @for(i of store.storeBranches; track i ) {
+    <li>{{ i }}</li>
+  }
+</ul>
