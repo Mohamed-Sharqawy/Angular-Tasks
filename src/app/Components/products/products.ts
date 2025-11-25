@@ -1,16 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Iproduct } from '../../Models/iproduct';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { CardStyle } from "../../Directives/card-style";
 
 @Component({
   selector: 'app-products',
-  imports: [],
+  imports: [FormsModule, CommonModule, CardStyle],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
-export class Products {
+export class Products implements OnInit{
 
-  productsList:Iproduct[]
+  productsList:Iproduct[]=[];
+  totalPrice:number=0;
+  username:string="ali";
   constructor() {
+  }
+  ngOnInit(): void {
     this.productsList = [{
       id:1, 
       productName:"Laptop", 
@@ -79,5 +86,21 @@ export class Products {
       CategoryID:4
     }
   ]
+  this.productFound = this.productsList;
+  }
+
+  addtocart(quantity:string, price:number){
+  this.totalPrice += +quantity * price;
+  }
+
+  productFound:Iproduct[]=[];
+  //set, get Accessor
+  set GetByName(value:string){
+    this.productFound = this.searchProduct(value);
+  }
+
+  searchProduct(Word:string):Iproduct[]{
+    Word=Word.toLowerCase();
+    return this.productsList.filter(prod=> prod.productName.toLowerCase().includes(Word));
   }
 }
