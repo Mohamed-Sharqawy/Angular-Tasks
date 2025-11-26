@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Iproduct } from '../../Models/iproduct';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -112,6 +112,11 @@ export class Products implements OnInit{
   this.totalPrice += +quantity * price;
   }
 
+  @Output() productEvent:EventEmitter<Iproduct>=new EventEmitter<Iproduct>();
+
+  ChildAddtoCart(prod:Iproduct){
+    this.productEvent.emit(prod);
+  }
   //set, get Accessor
   // set GetByName(value:string){
   //   this.productFound = this.searchProduct(value);

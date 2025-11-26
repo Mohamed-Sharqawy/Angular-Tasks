@@ -6,4 +6,22 @@
     </form>
     
 </div>
-    <app-products [GetByNameinChild]="FilterByNameInParent"></app-products>
+    <app-products (productEvent)="ParetnAddtoCart($event)" [GetByNameinChild]="FilterByNameInParent"></app-products>
+
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(i of productsInCart; track i.id) {
+        <tr>
+            <td>{{ i.productName }}</td>
+            <td>{{ i.productPrice | currency }}</td>
+            <td>{{ i.productQuantity }}</td>
+        }
+    </tbody>
+</table>
