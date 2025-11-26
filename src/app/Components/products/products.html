@@ -10,11 +10,13 @@
 <div class="container">
     <form class="mt-2">
         <!-- Banana in a Box -->
-        <input [(ngModel)]="GetByName" [ngModelOptions]="{standalone: true}" type="text" class="form-control"/>
+        <input [(ngModel)]="GetByNameinChild" [ngModelOptions]="{standalone: true}" type="text" class="form-control"/>
     </form>
     <p>Hello, {{ username }} !</p>
     <p>Total Price: {{ totalPrice }}</p>
     <div class="row">
+        <h1>To Days' Date:{{date | date }}</h1>
+        <h2>creditCardNumber: {{ creditCardNumber | crediCardNumberFormatter }}</h2>
         @for (item of productFound; track item.id) {
             <div class="col-md-4 mb-4">
                 <div appCardStyle class="card h-100">
@@ -30,7 +32,7 @@
                         <!-- <h5 class="card-title" [style.color]="item.productQuantity == 0 ? 'red' : 'black'">{{ item.productName }}</h5> -->
                         <h5 class="card-title" [ngStyle]="{'color':(item.productQuantity==0)?'red':'blue' }">{{ item.productName }}</h5>
                         <p class="card-text">{{ item.productDetails }}</p> 
-                        <p class="card-text"><strong>Price:</strong> ${{ item.productPrice }}</p>
+                        <p class="card-text"><strong>Price:</strong> {{ item.productPrice | currency }}</p>
                         <p class="card-text"><strong>Quantity:</strong> {{ item.productQuantity }}</p>
                     </div>
                     @if(item.productQuantity === 0){
@@ -48,6 +50,10 @@
                         </button>
                     </div>
 
+                    <!-- In your Product component:
+a. Use Currency pipe with the total price field.
+b. Display date object and use date pipe
+c. Make a custom pipe, that formats the credit card number given in format like “0000000000000000” to this format “0000 – 0000 – 0000 – 0000”. -->
 
 
 

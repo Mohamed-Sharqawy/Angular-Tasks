@@ -1,0 +1,118 @@
+body {
+            background: #F0F2F5;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            position: relative;
+        }
+
+        h1 {
+            font-size: 8rem;
+            margin: 0;
+            color: #E0E4E8;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 10px 0 20px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: #FF6B6B;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #FF4757;
+        }
+
+        /* Ghost Animation Styles */
+        .ghost {
+            animation: float 3s ease-in-out infinite;
+            background: #fff;
+            border-radius: 50% 50% 0 0;
+            height: 100px;
+            width: 80px;
+            position: relative;
+            margin: 0 auto 40px auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        .face {
+            position: absolute;
+            top: 40%;
+            left: 25%;
+            width: 100%;
+        }
+
+        .eye {
+            background: #333;
+            border-radius: 50%;
+            height: 10px;
+            width: 10px;
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .mouth {
+            background: #333;
+            border-radius: 50%;
+            height: 8px;
+            width: 8px;
+            margin: 5px auto 0;
+        }
+
+        .bottom {
+            display: flex;
+            position: absolute;
+            bottom: -10px;
+            width: 100%;
+        }
+
+        .leg {
+            background: #fff;
+            border-radius: 0 0 50% 50%;
+            height: 15px;
+            width: 20px;
+            flex-grow: 1;
+        }
+
+        .shadow {
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            height: 10px;
+            width: 60px;
+            margin: -30px auto 0 auto;
+            animation: shrink 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes shrink {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.8); }
+        }

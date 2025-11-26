@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Iproduct } from '../../Models/iproduct';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CardStyle } from "../../Directives/card-style";
+import { CrediCardNumberFormatterPipe } from '../../Pipes/credi-card-number-formatter-pipe';
 
 @Component({
   selector: 'app-products',
-  imports: [FormsModule, CommonModule, CardStyle],
+  imports: [FormsModule, CommonModule, CardStyle, CrediCardNumberFormatterPipe],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
@@ -15,6 +16,8 @@ export class Products implements OnInit{
   productsList:Iproduct[]=[];
   totalPrice:number=0;
   username:string="ali";
+  date:Date=new Date();
+  creditCardNumber:string="1234567812345678";
   constructor() {
   }
   ngOnInit(): void {
@@ -99,16 +102,20 @@ export class Products implements OnInit{
     }
   }
 }
+  productFound:Iproduct[]=[];
+
+  @Input() set GetByNameinChild(value:string){
+    this.productFound = this.searchProduct(value);
+  }
 
   addtocart(quantity:string, price:number){
   this.totalPrice += +quantity * price;
   }
 
-  productFound:Iproduct[]=[];
   //set, get Accessor
-  set GetByName(value:string){
-    this.productFound = this.searchProduct(value);
-  }
+  // set GetByName(value:string){
+  //   this.productFound = this.searchProduct(value);
+  // }
 
   searchProduct(Word:string):Iproduct[]{
     Word=Word.toLowerCase();

@@ -1,0 +1,9 @@
+<div class="container">
+    <form class="mt-2">
+        <!-- Banana in a Box -->
+        <input [(ngModel)]="FilterByNameInParent" [ngModelOptions]="{standalone: true}" type="text" class="form-control"/>
+
+    </form>
+    
+</div>
+    <app-products [GetByNameinChild]="FilterByNameInParent"></app-products>

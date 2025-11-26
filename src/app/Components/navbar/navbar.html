@@ -10,9 +10,9 @@
   </button>
 
   <ul class="navbar-menu" [class.active]="isMenuOpen">
-    <li><a routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="isMenuOpen = false">Home</a></li>
+    <li><a routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="isMenuOpen = false">Home</a></li>
     <li><a routerLink="/about" routerLinkActive="active-link" (click)="isMenuOpen = false">About</a></li>
-    <li><a routerLink="/services" routerLinkActive="active-link" (click)="isMenuOpen = false">Services</a></li>
+    <li><a routerLink="/products" routerLinkActive="active-link" (click)="isMenuOpen = false">Products</a></li>
     <li><a routerLink="/contact" routerLinkActive="active-link" (click)="isMenuOpen = false">Contact</a></li>
   </ul>
 </nav> 
