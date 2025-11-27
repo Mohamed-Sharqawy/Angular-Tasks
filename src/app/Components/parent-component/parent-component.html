@@ -28,7 +28,18 @@
             <td>
                 <button (click)="increaseQuantity(i)" class="btn btn-success btn-sm">+</button>
             </td>
+            <td>
+                <button (click)="goToProductDetails(i.id)" class="btn btn-info btn-sm">
+                    Product Details
+                </button>
+            </td>
         </tr>
         }
     </tbody>
 </table>
+
+<div  class="alert alert-info mt-4">
+    @if(productsInCart.length === 0){
+        السلة فاضية! ابدأ التسوق دلوقتي 🛒
+    }
+</div>

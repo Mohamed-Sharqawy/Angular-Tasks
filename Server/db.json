@@ -1,6 +1,6 @@
-[
+{"products":[
   {
-    "id": 1,
+    "id": "1",
     "productName": "Laptop",
     "productPrice": 1500,
     "productQuantity": 10,
@@ -9,7 +9,7 @@
     "CategoryID": 1
   },
   {
-    "id": 2,
+    "id": "2",
     "productName": "Smartphone",
     "productPrice": 800,
     "productQuantity": 20,
@@ -18,7 +18,7 @@
     "CategoryID": 2
   },
   {
-    "id": 3,
+    "id": "3",
     "productName": "Headphones",
     "productPrice": 200,
     "productQuantity": 1,
@@ -27,7 +27,7 @@
     "CategoryID": 3
   },
   {
-    "id": 4,
+    "id": "4",
     "productName": "Laptop",
     "productPrice": 1500,
     "productQuantity": 10,
@@ -36,7 +36,7 @@
     "CategoryID": 1
   },
   {
-    "id": 5,
+    "id": "5",
     "productName": "Smartphone",
     "productPrice": 800,
     "productQuantity": 0,
@@ -45,7 +45,7 @@
     "CategoryID": 2
   },
   {
-    "id": 6,
+    "id": "6",
     "productName": "Headphones",
     "productPrice": 200,
     "productQuantity": 15,
@@ -54,7 +54,7 @@
     "CategoryID": 3
   },
   {
-    "id": 7,
+    "id": "7",
     "productName": "Laptop",
     "productPrice": 1500,
     "productQuantity": 5,
@@ -63,7 +63,7 @@
     "CategoryID": 1
   },
   {
-    "id": 8,
+    "id": "8",
     "productName": "Smartphone",
     "productPrice": 800,
     "productQuantity": 8,
@@ -72,7 +72,7 @@
     "CategoryID": 2
   },
   {
-    "id": 9,
+    "id": "9",
     "productName": "Headphones",
     "productPrice": 200,
     "productQuantity": 12,
@@ -81,7 +81,7 @@
     "CategoryID": 3
   },
   {
-    "id": 10,
+    "id": "10",
     "productName": "Smartwatch",
     "productPrice": 300,
     "productQuantity": 7,
@@ -89,4 +89,4 @@
     "productDetails": "A stylish smartwatch",
     "CategoryID": 4
   }
-]
+]}

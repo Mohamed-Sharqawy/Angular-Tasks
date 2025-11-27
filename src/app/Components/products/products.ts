@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CardStyle } from "../../Directives/card-style";
 import { CrediCardNumberFormatterPipe } from '../../Pipes/credi-card-number-formatter-pipe';
+import { Prodcutservice } from '../../Service/prodcutservice';
 
 @Component({
   selector: 'app-products',
@@ -18,78 +19,27 @@ export class Products implements OnInit{
   username:string="ali";
   date:Date=new Date();
   creditCardNumber:string="1234567812345678";
-  constructor() {
+  productFound:Iproduct[]=[];
+  private searchKeyword:string="";
+
+  constructor(private productService: Prodcutservice) {
   }
   ngOnInit(): void {
-    this.productsList = [{
-      id:1, 
-      productName:"Laptop", 
-      productPrice:1500, productQuantity:10, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"A high-performance laptop", 
-      CategoryID:1
-    },
-    {
-      id:2, 
-      productName:"Smartphone", 
-      productPrice:800, productQuantity:20, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"A latest model smartphone", 
-      CategoryID:2},
-    {
-      id:3, 
-      productName:"Headphones",
-      productPrice:200, productQuantity:1, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"Noise-cancelling headphones", 
-      CategoryID:3
-    },
-  {
-      id:4, 
-      productName:"Laptop", 
-      productPrice:1500, productQuantity:10, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"A high-performance laptop", 
-      CategoryID:1
-    },
-    {
-      id:5, 
-      productName:"Smartphone", 
-      productPrice:800, productQuantity:0, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"A latest model smartphone", 
-      CategoryID:2},
-    {
-      id:6, 
-      productName:"Headphones",
-      productPrice:200, productQuantity:15, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"Noise-cancelling headphones", 
-      CategoryID:3
-    },
-    {
-      id:7, 
-      productName:"Laptop", 
-      productPrice:1500, productQuantity:5, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"A high-performance laptop",
-      CategoryID:1
-    },
-    {
-      id:8, 
-      productName:"Smartphone", 
-      productPrice:800, productQuantity:8, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"A latest model smartphone",
-      CategoryID:2},
-    {
-      id:9,
-      productName:"Headphones",
-      productPrice:200, productQuantity:12, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"Noise-cancelling headphones", 
-      CategoryID:3
-    },
-    {
-      id:10, 
-      productName:"Smartwatch", 
-      productPrice:300, productQuantity:7, ImageUrl:"https://m.media-amazon.com/images/I/71h3h8PipAL._AC_SX679_.jpg",
-      productDetails:"A stylish smartwatch", 
-      CategoryID:4
-    }
-  ]
-  this.productFound = this.productsList;
+    this.loadProducts();
+  }
+
+  loadProducts() : void{
+    this.productService.getAllProds().subscribe({
+      next: (products)=>{
+        this.productsList = products;
+        this.productFound = this.productsList;
+        console.log('Products loaded successfully', products);
+      },
+      error: (err) => {
+        console.error('Error loading products', err);
+        alert('Failed to load products. Please Check Your Code.');
+      }
+    })
   }
 
   buyProduct(prod:Iproduct){
@@ -102,10 +52,22 @@ export class Products implements OnInit{
     }
   }
 }
-  productFound:Iproduct[]=[];
 
   @Input() set GetByNameinChild(value:string){
-    this.productFound = this.searchProduct(value);
+    this.searchKeyword = value;
+    this.SearchMechanism(value);
+  }
+
+  SearchMechanism(keyWord : string): void{
+    if(this.searchKeyword.trim() === ''){
+      this.productFound = this.productsList;
+      return;
+    }
+
+    const searchKeywordLower = this.searchKeyword.toLowerCase();
+    this.productFound = this.productsList.filter(prod =>
+      prod.productName.toLowerCase().includes(searchKeywordLower)
+    );
   }
 
   addtocart(quantity:string, price:number){

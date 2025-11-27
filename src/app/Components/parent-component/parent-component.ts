@@ -3,6 +3,7 @@ import { Products } from '../products/products';
 import { FormsModule } from '@angular/forms';
 import { Iproduct } from '../../Models/iproduct';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-parent-component',
@@ -13,6 +14,8 @@ import { CommonModule } from '@angular/common';
 export class ParentComponent {
   FilterByNameInParent:string="";
   productsInCart:Iproduct[]=[];
+
+  constructor(private router: Router) {}
 
   ParetnAddtoCart(prod:Iproduct){
     
@@ -40,5 +43,14 @@ export class ParentComponent {
     if(existingProduct){
       existingProduct.productQuantity += 1;
     }
+  }
+
+  goToProductDetails(productId:number):void {
+    
+    this.router.navigate(['/products', productId]).then(() =>{
+      console.log('Navigation to product details successful');
+    }).catch(err => {
+      console.error('Navigation to product details failed', err);
+    });
   }
 }
