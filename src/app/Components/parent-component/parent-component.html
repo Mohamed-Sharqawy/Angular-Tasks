@@ -8,7 +8,7 @@
 </div>
     <app-products (productEvent)="ParetnAddtoCart($event)" [GetByNameinChild]="FilterByNameInParent"></app-products>
 
-<table>
+<table class="table table-striped mt-4">
     <thead>
         <tr>
             <th>Product Name</th>
@@ -22,6 +22,13 @@
             <td>{{ i.productName }}</td>
             <td>{{ i.productPrice | currency }}</td>
             <td>{{ i.productQuantity }}</td>
+            <td>
+                <button (click)="decreaseQuantity(i)" class="btn btn-danger btn-sm" [disabled]="i.productQuantity <= 0">-</button>
+            </td>
+            <td>
+                <button (click)="increaseQuantity(i)" class="btn btn-success btn-sm">+</button>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

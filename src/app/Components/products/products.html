@@ -43,7 +43,7 @@
                 }@else {
 
                     <div class="card-footer">
-                        <button (click)="ChildAddtoCart(item)" 
+                        <button (click)="ChildAddtoCart(item, '1', item.productPrice)" 
                                 class="btn btn-primary w-100" 
                                 [disabled]="item.productQuantity === 0">
                             Buy Now

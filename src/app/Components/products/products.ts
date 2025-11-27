@@ -114,8 +114,9 @@ export class Products implements OnInit{
 
   @Output() productEvent:EventEmitter<Iproduct>=new EventEmitter<Iproduct>();
 
-  ChildAddtoCart(prod:Iproduct){
+  ChildAddtoCart(prod:Iproduct, quantity:string, price:number){
     this.productEvent.emit(prod);
+    this.totalPrice += +quantity * price;
   }
   //set, get Accessor
   // set GetByName(value:string){

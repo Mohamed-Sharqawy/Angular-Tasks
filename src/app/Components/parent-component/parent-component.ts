@@ -23,4 +23,22 @@ export class ParentComponent {
       this.productsInCart.push({...prod, productQuantity: 1});
     }
   }
+
+  decreaseQuantity(prod:Iproduct){
+    let existingProduct=this.productsInCart.find(p => p.id === prod.id);
+    if(existingProduct ){
+      if(existingProduct.productQuantity <= 1){
+        this.productsInCart = this.productsInCart.filter(p => p.id !== prod.id);
+      }else{
+        existingProduct.productQuantity -=1;
+      }
+    }
+  }
+
+  increaseQuantity(prod:Iproduct){
+    let existingProduct = this.productsInCart.find(p => p.id === prod.id);
+    if(existingProduct){
+      existingProduct.productQuantity += 1;
+    }
+  }
 }
