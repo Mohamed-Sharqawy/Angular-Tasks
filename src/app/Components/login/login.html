@@ -1,0 +1,115 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card shadow-lg">
+        <div class="card-header bg-success text-white text-center">
+          <h3>🔐 تسجيل الدخول</h3>
+        </div>
+        <div class="card-body">
+          
+          <!-- Error Message -->
+          @if(errorMessage) {
+            <div class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+            
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">البريد الإلكتروني</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                [(ngModel)]="credentials.email"
+                #email="ngModel"
+                required
+                email
+                [class.is-valid]="email.valid && (email.dirty || email.touched || submitted)"
+                [class.is-invalid]="email.invalid && (email.dirty || email.touched || submitted)"
+                placeholder="example@email.com"
+              />
+              
+              @if(email.valid && (email.dirty || email.touched || submitted)) {
+                <div class="valid-feedback">
+                  ✓ الإيميل صحيح!
+                </div>
+              }
+
+              @if(email.invalid && (email.dirty || email.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-danger mt-2 py-1 mb-0">
+                    ⚠️ البريد الإلكتروني مطلوب وصحيح!
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">كلمة المرور</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                [(ngModel)]="credentials.password"
+                #password="ngModel"
+                required
+                minlength="6"
+                [class.is-valid]="password.valid && (password.dirty || password.touched || submitted)"
+                [class.is-invalid]="password.invalid && (password.dirty || password.touched || submitted)"
+                placeholder="ادخل كلمة المرور"
+              />
+              
+              @if(password.valid && (password.dirty || password.touched || submitted)) {
+                <div class="valid-feedback">
+                  ✓ كلمة المرور صحيحة!
+                </div>
+              }
+
+              @if(password.invalid && (password.dirty || password.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-danger mt-2 py-1 mb-0">
+                    ⚠️ كلمة المرور مطلوبة (6 أحرف على الأقل)!
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Login Button -->
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-success btn-lg"
+                [disabled]="isLoading"
+              >
+                @if(!isLoading) {
+                  <span>دخول 🚀</span>
+                }
+                @if(isLoading) {
+                  <span>
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    جاري تسجيل الدخول...
+                  </span>
+                }
+              </button>
+            </div>
+
+            <!-- Signup Link -->
+            <div class="text-center mt-3">
+              <p class="text-muted">
+                مش عندك حساب؟ 
+                <a routerLink="/admin/signup" class="text-primary fw-bold">سجل دلوقتي!</a>
+              </p>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

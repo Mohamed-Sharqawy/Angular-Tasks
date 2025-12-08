@@ -11,8 +11,28 @@
 
   <ul class="navbar-menu" [class.active]="isMenuOpen">
     <li><a routerLink="/home" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" (click)="isMenuOpen = false">Home</a></li>
-    <li><a routerLink="/about" routerLinkActive="active-link" (click)="isMenuOpen = false">About</a></li>
     <li><a routerLink="/products" routerLinkActive="active-link" (click)="isMenuOpen = false">Products</a></li>
-    <li><a routerLink="/contact" routerLinkActive="active-link" (click)="isMenuOpen = false">Contact</a></li>
+    
+    <!-- Admin Link -->
+    <li><a routerLink="/admin/signup" routerLinkActive="active-link" (click)="isMenuOpen = false">Admin</a></li>
+    
+    <!-- Login Link (يظهر لو مش logged in) -->
+    @if(!isLoggedIn) {
+      <li>
+        <a routerLink="/login" routerLinkActive="active-link" (click)="isMenuOpen = false">Login 🔐</a>
+      </li>
+    }
+    
+    <!-- User Info + Logout (يظهر لو logged in) -->
+    @if(isLoggedIn && currentUser) {
+      <li class="user-info">
+        <span class="user-name">👤 {{ currentUser.name }}</span>
+      </li>
+      <li>
+        <button class="logout-btn" (click)="onLogout()">
+          Logout 🚪
+        </button>
+      </li>
+    }
   </ul>
-</nav> 
+</nav>

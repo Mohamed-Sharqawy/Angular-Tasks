@@ -1,0 +1,262 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+          <h3>📝 تسجيل مستخدم جديد</h3>
+        </div>
+        <div class="card-body">
+          
+          <!-- Error Message -->
+          @if(errorMessage) {
+            <div class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+          }
+
+          <!-- Template Driven Form -->
+          <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
+            
+            <!-- Name Field -->
+            <div class="mb-3">
+              <label for="name" class="form-label">الاسم الكامل</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                [(ngModel)]="user.name"
+                #name="ngModel"
+                required
+                minlength="5"
+                [class.is-valid]="name.valid && (name.dirty || name.touched || submitted)"
+                [class.is-invalid]="name.invalid && (name.dirty || name.touched || submitted)"
+                placeholder="ادخل اسمك الكامل"
+              />
+              
+              @if(name.valid && (name.dirty || name.touched || submitted)) {
+                <div class="valid-feedback">
+                  ✓ تمام! الاسم صحيح
+                </div>
+              }
+
+              @if(name.errors?.['required'] && (name.dirty || name.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-danger mt-2 py-1 mb-0">
+                    ⚠️ الاسم مطلوب!
+                  </div>
+                </div>
+              }
+
+              @if(name.errors?.['minlength'] && (name.dirty || name.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-warning mt-2 py-1 mb-0">
+                    ⚠️ الاسم لازم يكون 5 حروف على الأقل!
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-3">
+              <label for="email" class="form-label">البريد الإلكتروني</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                [(ngModel)]="user.email"
+                #email="ngModel"
+                required
+                email
+                [class.is-valid]="email.valid && (email.dirty || email.touched || submitted)"
+                [class.is-invalid]="email.invalid && (email.dirty || email.touched || submitted)"
+                placeholder="example@email.com"
+              />
+              
+              @if(email.valid && (email.dirty || email.touched || submitted)) {
+                <div class="valid-feedback">
+                  ✓ الإيميل صحيح!
+                </div>
+              }
+
+              @if(email.errors?.['required'] && (email.dirty || email.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-danger mt-2 py-1 mb-0">
+                    ⚠️ البريد الإلكتروني مطلوب!
+                  </div>
+                </div>
+              }
+
+              @if(email.errors?.['email'] && (email.dirty || email.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-warning mt-2 py-1 mb-0">
+                    ⚠️ صيغة البريد الإلكتروني غير صحيحة!
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-3">
+              <label for="password" class="form-label">كلمة المرور</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                [(ngModel)]="user.password"
+                #password="ngModel"
+                required
+                minlength="6"
+                [class.is-valid]="password.valid && (password.dirty || password.touched || submitted)"
+                [class.is-invalid]="password.invalid && (password.dirty || password.touched || submitted)"
+                placeholder="ادخل كلمة المرور"
+              />
+              
+              @if(password.valid && (password.dirty || password.touched || submitted)) {
+                <div class="valid-feedback">
+                  ✓ كلمة المرور قوية!
+                </div>
+              }
+
+              @if(password.errors?.['required'] && (password.dirty || password.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-danger mt-2 py-1 mb-0">
+                    ⚠️ كلمة المرور مطلوبة!
+                  </div>
+                </div>
+              }
+
+              @if(password.errors?.['minlength'] && (password.dirty || password.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-warning mt-2 py-1 mb-0">
+                    ⚠️ كلمة المرور لازم تكون 6 أحرف على الأقل!
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                name="confirmPassword"
+                [(ngModel)]="confirmPassword"
+                #confirmPasswordField="ngModel"
+                required
+                minlength="6"
+                [class.is-valid]="confirmPasswordField.valid && passwordsMatch() && (confirmPasswordField.dirty || confirmPasswordField.touched || submitted)"
+                [class.is-invalid]="(confirmPasswordField.invalid || !passwordsMatch()) && (confirmPasswordField.dirty || confirmPasswordField.touched || submitted)"
+                placeholder="أعد إدخال كلمة المرور"
+              />
+              
+              @if(confirmPasswordField.valid && passwordsMatch() && (confirmPasswordField.dirty || confirmPasswordField.touched || submitted)) {
+                <div class="valid-feedback">
+                  ✓ كلمات المرور متطابقة!
+                </div>
+              }
+
+              @if(confirmPasswordField.errors?.['required'] && (confirmPasswordField.dirty || confirmPasswordField.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-danger mt-2 py-1 mb-0">
+                    ⚠️ تأكيد كلمة المرور مطلوب!
+                  </div>
+                </div>
+              }
+
+              @if(confirmPasswordField.errors?.['minlength'] && (confirmPasswordField.dirty || confirmPasswordField.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-warning mt-2 py-1 mb-0">
+                    ⚠️ كلمة المرور لازم تكون 6 أحرف على الأقل!
+                  </div>
+                </div>
+              }
+
+              @if(!passwordsMatch() && confirmPasswordField.valid && (confirmPasswordField.dirty || confirmPasswordField.touched || submitted)) {
+                <div class="invalid-feedback">
+                  <div class="alert alert-danger mt-2 py-1 mb-0">
+                    ⚠️ كلمات المرور غير متطابقة!
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Role Selection -->
+            <div class="mb-3">
+              <label class="form-label">الصلاحية</label>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="role"
+                    id="roleUser"
+                    value="user"
+                    [(ngModel)]="user.role"
+                  />
+                  <label class="form-check-label" for="roleUser">
+                    مستخدم عادي 👤
+                  </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="role"
+                    id="roleAdmin"
+                    value="admin"
+                    [(ngModel)]="user.role"
+                  />
+                  <label class="form-check-label" for="roleAdmin">
+                    مسؤول (Admin) 👑
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit & Reset Buttons -->
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                [disabled]="isLoading"
+              >
+                @if(!isLoading) {
+                  <span>تسجيل 🚀</span>
+                }
+                @if(isLoading) {
+                  <span>
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    جاري التسجيل...
+                  </span>
+                }
+              </button>
+              
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="resetForm(signupForm)"
+                [disabled]="isLoading"
+              >
+                مسح البيانات
+              </button>
+            </div>
+
+            <!-- Already have account -->
+            <div class="text-center mt-3">
+              <p class="text-muted">
+                عندك حساب بالفعل؟ 
+                <a routerLink="/login" class="text-primary fw-bold">سجل دخول!</a>
+              </p>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
